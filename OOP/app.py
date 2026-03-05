@@ -37,3 +37,21 @@ def index():
     # Get available books for display
     available_books = lib.get_available_books()
     return render_template('index.html', books=available_books)
+
+# Route for adding books: displays form and handles submission
+@app.route("/add", methods=["GET", "POST"])
+def add():
+    if request.method == "POST":
+        # Get form data
+        title = request.form.get('title')
+        author = request.form.get('author')
+        book = Book(title, author)
+        lib.add_book(book)
+        # Redirect to home page
+        return redirect(url_for('index'))
+    # Display the add book form
+    return render_template('add.html')
+
+# Run the Flask app in debug mode
+if __name__ == "__main__":
+    app.run(debug=True)
