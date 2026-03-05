@@ -69,3 +69,13 @@ class Library:
             print(f"Success: {book.title} has been returned.")
         else:
             print(f"Error: {book.title} by {book.author} was not borrowed or does not exist.")
+    
+    # Get a list of available books (for web display)
+    def get_available_books(self):
+        self.cur.execute("SELECT title, author FROM books WHERE is_available = 1")
+        return self.cur.fetchall()
+    
+    # Close database connections
+    def close(self):
+        self.cur.close()
+        self.conn.close()
