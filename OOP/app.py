@@ -53,5 +53,6 @@ def add():
     return render_template('add.html')
 
 # Run the Flask app in debug mode
+# Use in development environment ONLY
 if __name__ == "__main__":
     app.run(debug=True)
