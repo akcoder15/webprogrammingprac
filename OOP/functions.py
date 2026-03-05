@@ -30,3 +30,12 @@ class Library:
             )
         ''')
         self.conn.commit()
+
+   # Add a new book to the library
+    def add_book(self, book):
+        try:
+            self.cur.execute("INSERT INTO books(title, author, is_available) VALUES (?,?,?)",
+                            (book.title, book.author, 1 if book.is_available else 0))
+            self.conn.commit()
+        except sqlite3.IntegrityError:
+            print(f"{book.title} by {book.author} is already added")
